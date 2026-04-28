@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from calculator.views import calculoTeste
+from calculator.views import calculoTeste, home_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home_view, name='home'),
     path('calculusTest/', calculoTeste, name='teste123'),
 ]

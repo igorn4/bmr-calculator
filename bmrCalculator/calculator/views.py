@@ -26,3 +26,5 @@ def calculoTeste(request):
         print(serializer.errors)
         return render(request, 'calculatorMain/index.html', {'errors': serializer.errors})
     
+def home_view(request):
+    return render(request, 'calculatorMain/homepage.html')
