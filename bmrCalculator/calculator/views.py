@@ -4,19 +4,25 @@ from rest_framework.response import Response
 from .serializers import UserProfileSerializer, DailyRegisterSerializer
 
 # Create your views here.
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 def calculoTeste(request):
+
+    if request.method == 'GET':
+        # Esta linha faz o Django procurar o seu arquivo HTML e mostrá-lo
+        return render(request, 'calculatorMain/index.html')
     
-    serializer = UserProfileSerializer(data=request.data)
+    # Se for POST, ele segue com a lógica que você já tinha
+    if request.method == 'POST':
+        serializer = UserProfileSerializer(data=request.data)
+        print("entrou no post")
+
+        if serializer.is_valid():
+            serializer.save() 
+            # EM VEZ DE: return Response(...)
+            # FAZEMOS:
+            return render(request, 'calculatorMain/success.html')
+        
+        # Se os dados estiverem errados, volta pro form com os erros
+        print(serializer.errors)
+        return render(request, 'calculatorMain/index.html', {'errors': serializer.errors})
     
-    if serializer.is_valid():
-        
-        age = serializer.validated_data['age']
-        birth_date = serializer.validated_data['birth_date']
-        height = serializer.validated_data['height']
-        
-        serializer.save() 
-        
-        return Response({"status": "Dados salvos e TMB calculada!"})
-    
-    return Response(serializer.errors, status=400)
