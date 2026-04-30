@@ -16,10 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from calculator.views import calculoTeste, home_view
+from calculator.views import TMBCalculus, home_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
-    path('calculusTest/', calculoTeste, name='teste123'),
+    path('calculator/', TMBCalculus.as_view(), name='teste123'),
 ]

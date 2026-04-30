@@ -22,5 +22,32 @@
         <br>
         <a href="{% url 'home' %}">Voltar para a Página Inicial</a>
     </div>
+
+    <h3>Histórico de Cálculos</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Peso</th>
+                <th>Altura</th>
+                <th>Resultado (TMB)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in registros %}
+            <tr>
+                <td>{{ item.created_at|date:"d/m/Y H:i" }}</td>
+                <td>{{ item.weight }} kg</td>
+                <td>{{ item.height }} cm</td>
+                <td>{{ item.tmb_result }} kcal</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Nenhum registro encontrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 </body>
 </html>
