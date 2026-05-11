@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -12,9 +14,10 @@ class TMBCalculus(APIView): # this class is called when we access the endpoint /
 
     def get(self, request):
         registros = UserProfile.objects.all().order_by('-id')
-        return render(request, 'calculatorMain/index.html', {'registros': registros})
+        return render(request, 'calculatorMain/datafilling.html', {'registros': registros})
 
     def post(self, request):
+
         serializer = UserProfileSerializer(data=request.data)
 
         if serializer.is_valid():
